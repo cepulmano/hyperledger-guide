@@ -13,8 +13,23 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 apt-cache policy docker-ce
 sudo apt install docker-ce
+```
+
+To run docker commands without using sudo
+```
 sudo usermod -aG docker ${USER}
-su - ${USER}
+```
+
+Log out of the server and then log back in
+```
+exit
+```
+```
+ssh ubuntu@<private_ip> -i hyperledger.pem
+```
+
+Test by checking the docker version  
+```
 docker -v
 ```
 
@@ -33,6 +48,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 source ~/.bashrc
 nvm install v12.16.1
+node -v
 ```
 
 ### Install Go
