@@ -8,10 +8,20 @@
 [Reference](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
 ```
 sudo apt update
+```
+```
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
+```
+```
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+```
+```
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+```
+```
 apt-cache policy docker-ce
+```
+```
 sudo apt install docker-ce
 ```
 
@@ -38,6 +48,8 @@ docker -v
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
+```
+```
 docker-compose --version
 ```
 
@@ -48,6 +60,8 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 source ~/.bashrc
 nvm install v12.16.1
+```
+```
 node -v
 ```
 
@@ -62,20 +76,17 @@ sudo nano ~/.profile
 ```
 
 Add the following at the end of the file
-
 ```
 export PATH=$PATH:/usr/local/go/bin
 ```
 
 After you’ve added this information to your profile, save and close the file. If you used nano, do so by pressing CTRL+X, then Y, and then ENTER.
-
 ```
 source ~/.profile
 go version
 ```
 
 ### Install the jq command
-
 ```
 sudo apt install jq
 ```
@@ -83,7 +94,6 @@ sudo apt install jq
 ## Setting Up the Test Network
 
 ### Install Fabric and Fabric Samples
-
 ```
 curl -sSLO https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/install-fabric.sh && chmod +x install-fabric.sh
 ./install-fabric.sh
@@ -95,14 +105,7 @@ cd fabric-samples/test-network
 ./network.sh up
 ```
 
-### To bring down a network
-
-```
-./network.sh down
-```
-
 ### Enable peer CLI
-
 ```
 export PATH=${PWD}/../bin:$PATH
 export FABRIC_CFG_PATH=$PWD/../config/
@@ -133,7 +136,7 @@ export CORE_PEER_ADDRESS=localhost:7051
 peer lifecycle chaincode queryinstalled
 ```
 
-### Initialize the ledger
+### Initialize the ledger, add sample assets
 ```
 peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" -c '{"function":"InitLedger","Args":[]}'
 ```
@@ -143,12 +146,12 @@ peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.exa
 peer chaincode query -C mychannel -n basic -c '{"Args":["GetAllAssets"]}'
 ```
 
-### Invoke a chaincode transaction
+### Invoke a chaincode transaction to update asset6 owner
 ```
 peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem" -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt" --peerAddresses localhost:9051 --tlsRootCertFiles "${PWD}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt" -c '{"function":"TransferAsset","Args":["asset6","Christopher"]}'
 ```
 
-## Clearing your dev environment
+## Clearing your dev environment (in case you want to start from scratch)
 
 ### Bring the network down
 ```
@@ -166,4 +169,4 @@ rm -rf *
 docker system prune -a
 ```
 
-After this, you can start at Step "Setting Up the Test Network"
+### You can start restart at Step "Setting Up the Test Network"
