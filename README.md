@@ -47,6 +47,8 @@ docker -v
 [Reference](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+```
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 ```
@@ -72,6 +74,10 @@ cd ~
 curl -OL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz
 sha256sum go1.16.7.linux-amd64.tar.gz
 sudo tar -C /usr/local -xvf go1.16.7.linux-amd64.tar.gz
+```
+
+Edit ~/.profile
+```
 sudo nano ~/.profile
 ```
 
